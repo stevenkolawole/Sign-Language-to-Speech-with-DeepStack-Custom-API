@@ -1,0 +1,75 @@
+import cv2, requests, time  
+
+import argparse
+import imutils
+from imutils.video import VideoStream
+
+def predict_sign(frame, url):
+	s = time.time()
+	response = requests.post(url, files={"image": frame}).json()
+	e = time.time()
+	print(f"Inferences took: {e -s} seconds.")
+	print(response)
+
+	if "success" in response and response['success'] and len(response['predictions']) > 0:
+		prediction = response['predictions'][0]
+		for object in response["predictions"]:
+			print(object["label"])
+	else: 
+		prediction = None
+	return prediction
+
+
+if __name__ == '__main__':
+	# construct the argument parser and parse the arguments
+	parser = argparse.ArgumentParser()
+	parser.add_argument("--deepstack-url", type=str,
+		default="http://localhost:88/v1/vision/custom/sign",
+		help="url to the deepstack server's docker image")
+	args = vars(parser.parse_args())
+
+	deepstack_url = args['deepstack_url']
+
+	# initialize the video stream and allow the camera sensor to warm up
+	print("[INFO] starting video stream...")
+	stream = VideoStream(src=0).start()
+	time.sleep(2.0)
+
+	color = (0, 255, 0)
+
+	# loop over the frames from the video stream
+	while True:
+		# grab the frame from the threaded video stream and resize it
+		# to have a maximum width of 400 pixels
+		frame = stream.read() 
+		frame = imutils.resize(frame, width=400)
+		success, encoded_image = cv2.imencode('.jpg', frame)
+		source_image = content2 = encoded_image.tobytes()
+
+		print("Predict...")
+		prediction = predict_sign(source_image, deepstack_url)
+
+		if prediction is not None:
+			confidence = prediction['confidence']
+			label = prediction['label']
+			y_min = prediction['y_min']
+			y_max = prediction['y_max']
+			x_min = prediction['x_min']
+			x_max = prediction['x_max']
+
+			# display the label and bounding box rectangle on the output
+			# frame 
+			cv2.putText(frame, f"{label} {confidence}", (x_min, y_min - 10),
+						cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
+			cv2.rectangle(frame, (x_min, y_min), (x_max, y_max), color, 2)
+
+		cv2.imshow("Frame", frame)
+		key = cv2.waitKey(1) & 0xFF
+
+		# if the `q` key was pressed, break from loop
+		if key == ord("q"):
+			break
+
+# do a bit of cleanup
+cv2.destroyAllWindows()
+stream.stop()
