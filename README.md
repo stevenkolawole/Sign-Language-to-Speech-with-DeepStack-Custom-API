@@ -36,7 +36,7 @@ directory with the next line of code.
 - To avoid potential *dependency hell*, create a virtual enviroment and 
 activate the created virtual environment afterwards.
 ``` 
-  python -m venv env    # use `python3` if on a Linux OS.
+  python3 -m venv env   
   source env/bin/activate
 ```
 - Install the dependencies using `pip install -r requirements`.
@@ -57,7 +57,7 @@ activate the created virtual environment afterwards.
 ```
   python image_detection.py image_filename.file_extension
  ```
-My default port is 88. To specify the port on which DeepStack server is running, run this instead;
+My default port number is 88. To specify the port on which DeepStack server is running, run this instead;
 ```
 python image_detection.py image_filename.file_extension --deepstack-port port_number
 ```
@@ -72,7 +72,7 @@ Running the above command would return two new files in your project root direct
 ```
   python livefeed_detection.py
 ```
-My default port is 88. To specify the port on which DeepStack server is running, run this instead;
+My default port number is 88. To specify the port on which DeepStack server is running, run this instead;
 ```
   python livefeed_detection.py --deepstack-port port_number
 ```
@@ -82,15 +82,15 @@ while also returning the sign meaning and its speech equivalent immediately.
 
 ## Additional Notes
 - **This project has built and tested successfully on a Linux machine. Other errors might arise on other Operating Systems,
-which might not have been accounted for in this documentation).
-- The dataset used in training the model was created via my webcam using an automation scipt. [scripts/creating_data.py]
-(https://github.com/SteveKola/Sign-Language-to-Speech-with-DeepStack-Custom-API/blob/main/scripts/creating_data.py)
+which might not have been accounted for in this documentation)**.
+- The dataset used in training the model was created via my webcam using an automation scipt. 
+[scripts/creating_data.py](https://github.com/SteveKola/Sign-Language-to-Speech-with-DeepStack-Custom-API/blob/main/scripts/creating_data.py)
 is the script used.
 - My dataset could be found in [this repository](https://github.com/SteveKola/Sign-Language-to-Speech-with-DeepStack-Custom-API/tree/main/scripts). 
 The repo contains both the DeepStack model's data and the TensorFlow Object Detection API's data (I did that about a month before this).
 - Dataset was annotated in YOLOv format using [LabelImg](https://github.com/tzutalin/labelImg).
-- Model was trained using Colab GPU. [scripts/model_training_deepstack.ipynb]
-(https://github.com/SteveKola/Sign-Language-to-Speech-with-DeepStack-Custom-API/blob/main/scripts/model_training_deepstack.ipynb)
+- Model was trained using Colab GPU. 
+[scripts/model_training_deepstack.ipynb](https://github.com/SteveKola/Sign-Language-to-Speech-with-DeepStack-Custom-API/blob/main/scripts/model_training_deepstack.ipynb)
 is the notebook used for that purpose. 
 
 ## Attributions
@@ -98,6 +98,6 @@ is the notebook used for that purpose.
 needed to replicate the whole building process. It is lean and concise.
 - A big **thank you** to [Patrick Ryan](https://github.com/youngsoul) for making it seem like 
 the project is not too herculean in his [article](https://docs.deepstack.cc/custom-models/).
-- I got my first introduction to DeepStack's custom models with this [article]
-(https://medium.com/deepquestai/detect-any-custom-object-with-deepstack-dd0a824a761e).
+- I got my first introduction to DeepStack's custom models with this 
+- [article](https://medium.com/deepquestai/detect-any-custom-object-with-deepstack-dd0a824a761e).
 Having built few with TensorFlow, I can't appreciate this enough.
