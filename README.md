@@ -94,7 +94,7 @@ To quit, press `q`.
 
 ## Additional Notes
 - **This project has built and tested successfully on a Linux machine. Other errors might arise on other Operating Systems,
-which might not have been accounted for in this documentation)**.
+which might not have been accounted for in this documentation**.
 - The dataset used in training the model was created via my webcam using an automation scipt. 
 [scripts/creating_data.py](https://github.com/SteveKola/Sign-Language-to-Speech-with-DeepStack-Custom-API/blob/main/scripts/creating_data.py)
 is the script used.
