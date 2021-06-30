@@ -8,6 +8,17 @@ import pyttsx3
 
 
 def predict_sign(frame, url):
+	"""
+	Function to return the response JSON from Deepstack's server
+	containing the confidence, label and bbox's coordinates.
+
+	params
+		frame 		each image frame of the live video
+		url 		Deepstack server's localhost URL
+
+	returns
+		prediction	JSON response from the server
+	"""
 	s = time.time()
 	response = requests.post(url, files={"image": frame}).json()
 	e = time.time()
@@ -26,12 +37,13 @@ def predict_sign(frame, url):
 if __name__ == '__main__':
 	# construct the argument parser and parse the arguments
 	parser = argparse.ArgumentParser()
-	parser.add_argument("--deepstack-url", type=str,
-		default="http://localhost:88/v1/vision/custom/sign",
-		help="url to the deepstack server's docker image")
+	parser.add_argument("--deepstack-port", 
+						type=str,
+						default=88,
+						help="url to the deepstack server's docker image")
 	args = vars(parser.parse_args())
 
-	deepstack_url = args['deepstack_url']
+	deepstack_url = f"http://localhost:{args['deepstack_port']}/v1/vision/custom/sign"
 
 	# initialize the video stream and allow the camera sensor to warm up
 	print("[INFO] starting video stream...")
@@ -41,7 +53,7 @@ if __name__ == '__main__':
 	color = (0, 255, 0)
 
 	#initialize the Text-to-speech engine
-	engine = pyttsx3.init()
+	text_engine = pyttsx3.init()
 
 	# loop over the frames from the video stream
 	while True:	
@@ -54,6 +66,7 @@ if __name__ == '__main__':
 
 		print("Predict...")
 		prediction = predict_sign(source_image, deepstack_url)
+		
 		label = ''
 		if prediction is not None:
 			confidence = prediction['confidence']
@@ -73,8 +86,8 @@ if __name__ == '__main__':
 		# convert to sound
 		if label:
 			text = label
-			engine.say(text)
-			engine.runAndWait()
+			text_engine.say(text)
+			text_engine.runAndWait()
 			
 		key = cv2.waitKey(1) & 0xFF
 
