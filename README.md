@@ -1,0 +1,103 @@
+# Sign Language-to-Speech with DeepStack's Custom API
+
+## Steps to run the code
+### 1. Install DeepStack using Docker. (Skip this if you already have DeepStack installed)
+- Docker needs to be installed first. For Mac OS and Windows users can install Docker from 
+[Docker's website](https://www.docker.com/products/docker-desktop).
+- To install on a Linux OS,run the code below;
+
+```
+  sudo apt-get update && sudo apt-get install docker.io
+  ```
+- Install DeepStack. *You might want to grab a coffee while waiting for this to finish its execution :smirk:*
+```
+  docker pull deepquestai/deepstack
+ ```
+- Test DeepQuest.
+```
+  docker run -e VISION-SCENE=True -v localstorage:/datastore -p 80:5000 deepquestai/deepstack
+ ```
+**NOTE:** This works for the CPU variant only. To explore the other ways to install, check the 
+[official tutorial](https://docs.deepstack.cc/#installation-guide-for-cpu-version).
+
+> **Error starting userland proxy: listen tcp4 0.0.0.0:80: bind: address already in use.**
+    
+If you come across this error, change `-p 80:5000` to another port, e.g., `-p 88:5000`. 
+(I'm using **88**, too :stuck_out_tongue_winking_eye:).
+
+
+### 2. Clone the Project Repository and Install Dependencies
+- To clone this repo, copy and run the command below in your bash and change into the new 
+directory with the next line of code.
+```
+  git clone https://github.com/SteveKola/Sign-Language-to-Speech-with-DeepStack-Custom-API.git
+  cd Sign-Language-to-Speech-with-DeepStack-Custom-API
+  ```
+- To avoid potential *dependency hell*, create a virtual enviroment and 
+activate the created virtual environment afterwards.
+``` 
+  python -m venv env    # use `python3` if on a Linux OS.
+  source env/bin/activate
+```
+- Install the dependencies using `pip install -r requirements`.
+- If you are on a Linux OS, TTS engines might not be pre-installed on your platform. Use the code below to install them.
+```
+  sudo apt-get update && sudo apt-get install espeak ffmpeg libespeak1
+```
+
+
+### 3. Spin up the DeepStack custom model's Server.
+- While still in the project directory's root, spin up the deepstack custom model's server by running the command below;
+```
+  sudo docker run -v ~/Downloads/ObjectDetection/models:/modelstore/detection -p 88:5000 deepquestai/deepstack
+```
+
+### 4. Detect sign language meanings in image files and generate realistic voice of words.
+- run the image_detection script on the image;
+```
+  python image_detection.py image_filename.file_extension
+ ```
+My default port is 88. To specify the port on which DeepStack server is running, run this instead;
+```
+python image_detection.py image_filename.file_extension --deepstack-port port_number
+```
+Running the above command would return two new files in your project root directory - 
+     
+1. a copy of the image with bbox around the detected sign with the meaning on the top of the box,
+2. an audiofile of the detected sign language.
+
+
+### 5. Detect sign language meanings on a live video (via webcam).
+- run the livefeed detection script;
+```
+  python livefeed_detection.py
+```
+My default port is 88. To specify the port on which DeepStack server is running, run this instead;
+```
+  python livefeed_detection.py --deepstack-port port_number
+```
+This will spin up the webcam and would automatically detect any sign language words in view of the camera,
+while also returning the sign meaning and its speech equivalent immediately. 
+
+
+## Additional Notes
+- **This project has built and tested successfully on a Linux machine. Other errors might arise on other Operating Systems,
+which might not have been accounted for in this documentation).
+- The dataset used in training the model was created via my webcam using an automation scipt. [scripts/creating_data.py]
+(https://github.com/SteveKola/Sign-Language-to-Speech-with-DeepStack-Custom-API/blob/main/scripts/creating_data.py)
+is the script used.
+- My dataset could be found in [this repository](https://github.com/SteveKola/Sign-Language-to-Speech-with-DeepStack-Custom-API/tree/main/scripts). 
+The repo contains both the DeepStack model's data and the TensorFlow Object Detection API's data (I did that about a month before this).
+- Dataset was annotated in YOLOv format using [LabelImg](https://github.com/tzutalin/labelImg).
+- Model was trained using Colab GPU. [scripts/model_training_deepstack.ipynb]
+(https://github.com/SteveKola/Sign-Language-to-Speech-with-DeepStack-Custom-API/blob/main/scripts/model_training_deepstack.ipynb)
+is the notebook used for that purpose. 
+
+## Attributions
+- The [DeepStack custom models' official docs](https://docs.deepstack.cc/custom-models/) contains everything that'd be
+needed to replicate the whole building process. It is lean and concise.
+- A big **thank you** to [Patrick Ryan](https://github.com/youngsoul) for making it seem like 
+the project is not too herculean in his [article](https://docs.deepstack.cc/custom-models/).
+- I got my first introduction to DeepStack's custom models with this [article]
+(https://medium.com/deepquestai/detect-any-custom-object-with-deepstack-dd0a824a761e).
+Having built few with TensorFlow, I can't appreciate this enough.
