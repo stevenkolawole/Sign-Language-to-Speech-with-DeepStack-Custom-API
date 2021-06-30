@@ -55,7 +55,7 @@ activate the created virtual environment afterwards.
 ### 3. Spin up the DeepStack custom model's Server.
 - While still in the project directory's root, spin up the deepstack custom model's server by running the command below;
 ```
-  sudo docker run -v ~/Downloads/ObjectDetection/models:/modelstore/detection -p 88:5000 deepquestai/deepstack
+  sudo docker run -v your_local/path/to/Sign-Language-to-Speech-with-DeepStack-Custom-API/models:/modelstore/detection -p 88:5000 deepquestai/deepstack
 ```
 
 ### 4. Detect sign language meanings in image files and generate realistic voice of words.
