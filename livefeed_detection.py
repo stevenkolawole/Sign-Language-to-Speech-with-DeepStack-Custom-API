@@ -4,6 +4,9 @@ import argparse
 import imutils
 from imutils.video import VideoStream
 
+import pyttsx3
+
+
 def predict_sign(frame, url):
 	s = time.time()
 	response = requests.post(url, files={"image": frame}).json()
@@ -37,8 +40,11 @@ if __name__ == '__main__':
 
 	color = (0, 255, 0)
 
+	#initialize the Text-to-speech engine
+	engine = pyttsx3.init()
+
 	# loop over the frames from the video stream
-	while True:
+	while True:	
 		# grab the frame from the threaded video stream and resize it
 		# to have a maximum width of 400 pixels
 		frame = stream.read() 
@@ -48,7 +54,7 @@ if __name__ == '__main__':
 
 		print("Predict...")
 		prediction = predict_sign(source_image, deepstack_url)
-
+		label = ''
 		if prediction is not None:
 			confidence = prediction['confidence']
 			label = prediction['label']
@@ -62,8 +68,14 @@ if __name__ == '__main__':
 			cv2.putText(frame, f"{label} {confidence}", (x_min, y_min - 10),
 						cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
 			cv2.rectangle(frame, (x_min, y_min), (x_max, y_max), color, 2)
-
 		cv2.imshow("Frame", frame)
+
+		# convert to sound
+		if label:
+			text = label
+			engine.say(text)
+			engine.runAndWait()
+			
 		key = cv2.waitKey(1) & 0xFF
 
 		# if the `q` key was pressed, break from loop
