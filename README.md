@@ -1,7 +1,10 @@
 # Sign Language-to-Speech with DeepStack's Custom API
 
+![](https://github.com/SteveKola/Sign-Language-to-Speech-with-DeepStack-Custom-API/blob/main/scripts/gifs/proof.gif)
+
 This project is an end-to-end working prototype that uses Artificial intelligence to detect sign language meanings 
 in images/videos and generate equivalent, realistic voice of words communicated by the sign language.
+
 
 ## Steps to run the project
 ### 1. Install DeepStack using Docker. (Skip this if you already have DeepStack installed)
@@ -69,6 +72,8 @@ Running the above command would return two new files in your project root direct
 1. a copy of the image with bbox around the detected sign with the meaning on the top of the box,
 2. an audiofile of the detected sign language.
 
+![image](https://user-images.githubusercontent.com/45284829/123965899-cfde8080-d9ac-11eb-874e-14d69b2e0c0c.png)
+![image](https://user-images.githubusercontent.com/45284829/123966073-f4d2f380-d9ac-11eb-8053-80a92130dedc.png)
 
 ### 5. Detect sign language meanings on a live video (via webcam).
 - run the livefeed detection script;
@@ -80,7 +85,9 @@ My default port number is 88. To specify the port on which DeepStack server is r
   python livefeed_detection.py --deepstack-port port_number
 ```
 This will spin up the webcam and would automatically detect any sign language words in view of the camera,
-while also returning the sign meaning and its speech equivalent immediately. 
+while also displaying the sign meaning and returning its speech equivalent immediately through the PC's audio system. 
+
+![](https://github.com/SteveKola/Sign-Language-to-Speech-with-DeepStack-Custom-API/blob/main/scripts/gifs/proof.gif)
 
 
 ## Additional Notes
