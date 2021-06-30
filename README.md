@@ -1,6 +1,6 @@
 # Sign Language-to-Speech with DeepStack's Custom API
 
-![](https://github.com/SteveKola/Sign-Language-to-Speech-with-DeepStack-Custom-API/blob/main/scripts/gifs/proof.gif)
+![](https://github.com/SteveKola/Sign-Language-to-Speech-with-DeepStack-Custom-API/blob/main/scripts/gifs/gif2.gif)
 
 This project is an end-to-end working prototype that uses Artificial intelligence to detect sign language meanings 
 in images/videos and generate equivalent, realistic voice of words communicated by the sign language.
@@ -86,6 +86,8 @@ My default port number is 88. To specify the port on which DeepStack server is r
 ```
 This will spin up the webcam and would automatically detect any sign language words in view of the camera,
 while also displaying the sign meaning and returning its speech equivalent immediately through the PC's audio system. 
+
+To quit, press `q`.
 
 ![](https://github.com/SteveKola/Sign-Language-to-Speech-with-DeepStack-Custom-API/blob/main/scripts/gifs/proof.gif)
 
