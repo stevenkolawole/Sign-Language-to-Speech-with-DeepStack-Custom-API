@@ -1,6 +1,9 @@
 # Sign Language-to-Speech with DeepStack's Custom API
 
-## Steps to run the code
+This project is an end-to-end working prototype that uses Artificial intelligence to detect sign language meanings 
+in images/videos and generate equivalent, realistic voice of words communicated by the sign language.
+
+## Steps to run the project
 ### 1. Install DeepStack using Docker. (Skip this if you already have DeepStack installed)
 - Docker needs to be installed first. For Mac OS and Windows users can install Docker from 
 [Docker's website](https://www.docker.com/products/docker-desktop).
@@ -23,7 +26,7 @@
 > **Error starting userland proxy: listen tcp4 0.0.0.0:80: bind: address already in use.**
     
 If you come across this error, change `-p 80:5000` to another port, e.g., `-p 88:5000`. 
-(I'm using **88**, too :stuck_out_tongue_winking_eye:).
+(I'm using **88**, too :blush:).
 
 
 ### 2. Clone the Project Repository and Install Dependencies
@@ -99,5 +102,5 @@ needed to replicate the whole building process. It is lean and concise.
 - A big **thank you** to [Patrick Ryan](https://github.com/youngsoul) for making it seem like 
 the project is not too herculean in his [article](https://docs.deepstack.cc/custom-models/).
 - I got my first introduction to DeepStack's custom models with this 
-- [article](https://medium.com/deepquestai/detect-any-custom-object-with-deepstack-dd0a824a761e).
+[article](https://medium.com/deepquestai/detect-any-custom-object-with-deepstack-dd0a824a761e).
 Having built few with TensorFlow, I can't appreciate this enough.
