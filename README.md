@@ -69,6 +69,8 @@ Running the above command would return two new files in your project root direct
 1. a copy of the image with bbox around the detected sign with the meaning on the top of the box,
 2. an audiofile of the detected sign language.
 
+![image](https://user-images.githubusercontent.com/45284829/123965899-cfde8080-d9ac-11eb-874e-14d69b2e0c0c.png)
+![image](https://user-images.githubusercontent.com/45284829/123966073-f4d2f380-d9ac-11eb-8053-80a92130dedc.png)
 
 ### 5. Detect sign language meanings on a live video (via webcam).
 - run the livefeed detection script;
