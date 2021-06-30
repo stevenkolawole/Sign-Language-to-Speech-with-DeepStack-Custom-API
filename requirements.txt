@@ -1,0 +1,4 @@
+opencv
+imutils
+pyttsx3
+deepstack-sdk
